@@ -1,0 +1,59 @@
+﻿
+@using PageScraper.Models
+@model  PageScraper.Models.OperationsModel.IndexViewModel
+
+@using (Html.BeginForm("_UrlToSubmit", "Home", FormMethod.Post, new { @class = "form-horizontal", id = "addlinkform" }))
+{
+    @Html.AntiForgeryToken()
+  
+    <div class="modal fade" id="myModal1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title">Url to scrape help</h4>
+                </div>
+                <div class="modal-body">
+                    <h2>Url to scrape tips</h2>
+                    <ul class="list-group">
+                        <li class="list-group-item list-group-item-success"><strong>DO</strong> - enter absolute URL (e.g "http(s)://mypage.com")</li>
+                        <li class="list-group-item list-group-item-danger"><strong>DON'T</strong> - enter relative URL (e.g "/mypage.com")</li>
+                        
+                    </ul>                 
+                </div>              
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+    <div class="row">
+        <div class="col-md-12" style="padding: 7px 7px 7px 7px">
+            @Html.LabelFor(model => model.Utsm.UrlToSubmit, "URL to scrape:")
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12" style="padding: 7px 7px 7px 7px">
+            <div class="input-group">
+                <span class="input-group-btn">
+                    <button type="button" id="btnHelp1" class="btn btn-default btn-custom-addlinkhelp" data-toggle="modal" data-target="#myModal1"><span class='glyphicon glyphicon-question-sign'></span></button>
+                </span>
+                @Html.TextBoxFor(model => model.Utsm.UrlToSubmit, new { @class = "form-control wide", id = "uts" })
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12" style="padding: 7px 7px 7px 7px">
+            @Html.ValidationMessageFor(m => m.Utsm.UrlToSubmit)
+        </div>
+    </div>
+      <!-- Button -->
+     <div class="row">
+         <div class="col-md-12" style="padding: 7px 7px 7px 7px">
+             <button id="btnSub" type="submit" class="btn btn-primary pull-right">Scrape Me</button>
+         </div>
+    </div>
+   <div id="successaddimg"></div>    
+    
+    
+    
+    
+}

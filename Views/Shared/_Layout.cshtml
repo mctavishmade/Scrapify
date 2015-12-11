@@ -1,0 +1,94 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/slider")
+    <link href="~/Content/webgrid.css" rel="stylesheet" />
+    <link href="~/Content/jquery.bxslider.css" rel="stylesheet" />
+    <style>
+        #autoUpdate {
+            display: none;
+            background: #eef;
+            padding: 10px;
+            text-align: center;
+        }
+
+        span.glyphicon-question-sign {
+            font-size: 1.5em;
+            max-width: 40px;
+            max-height: 40px;
+        }
+
+        #btnHelp1.btn {
+            padding: 4px !Important;
+           
+           
+        }
+
+        .bx-viewport {
+            max-height: 350px !important;
+        }
+
+        .mys :nth-child(3n+0) {
+            background-color: #dcdcdc;
+        }
+
+       a {
+           color: white !important;
+       }
+
+     
+    </style>
+
+    <script type="text/javascript">
+
+        $(document).ready(function() {
+
+            $(".btnHelp1").click(function() {
+                $("#myModal1").modal('show');
+            });
+
+            var currenturl = $(location).attr('href');
+            var newurl = currenturl.split('/Home')[0];
+            var stateObj = { foo: "bar" };
+            window.history.replaceState(stateObj, "index", newurl);
+
+        });
+
+
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            $('#ulSlider').bxSlider(function () {
+                autoStart: true;
+            });
+            $('.bx-wrapper').width('100%');
+            $('.bx-wrapper').height('350px');
+            $('.bx-viewport').height('400px');
+        });
+    </script>
+
+
+
+</head>
+<body>
+    <div class="row" style="width:auto">
+        <div id="content">
+            <div>
+                @RenderBody()
+            </div>
+        </div>
+    </div>      
+
+   
+    @RenderSection("scripts", required: false)
+</body>
+</html>

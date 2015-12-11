@@ -1,0 +1,82 @@
+﻿@using PageScraper.Models
+@model  OperationsModel.IndexViewModel
+
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12" style="padding: 5px">
+            <div class="panel panel-primary" style="margin: 0 auto; width: 500px">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Enter a URL to scrape:</h3>
+                </div>
+
+                <div class="panel-body">
+                    @{Html.RenderPartial("_UrlToSubmit");}
+                </div>
+            </div>
+        </div>
+    </div>
+    @if (Model.Lstimages != null && Model.LstText != null)
+    {
+        <div class="row">
+        <div class="col-md-7" style="padding: 5px">
+
+            @if (Model.Lstimages != null) 
+            { 
+            <div class="panel panel-primary" style="margin: 0 auto; width: 725px; height: 500px; ">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Scraped Images:</h3>
+                </div>
+                <div class="panel-body">
+                    <div>
+                        <ul id="ulSlider">
+                            @foreach (var image in Model.Lstimages)
+                            {
+                                <li>
+                                    <img src="@Url.Content(image.ImagePath)"/>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            }
+            
+        </div>
+        <div class="col-md-5" style="padding: 5px">
+            @if (Model.LstText != null)
+            {
+                var grid = new WebGrid(Model.LstText,
+                    ajaxUpdateContainerId: "grid",
+                    ajaxUpdateCallback: "styleGrid",
+                    rowsPerPage: 30);
+
+
+                <div class="webgrid-wrapper">
+                    <div id="grid">
+                        @grid.GetHtml(
+                            htmlAttributes: new {id = "tblWebGrid"},
+                            tableStyle: "webgrid-table",
+                            headerStyle: "webgrid-header",
+                            footerStyle: "webgrid-footer",
+                            alternatingRowStyle: "webgrid-alternating-row",
+                            selectedRowStyle: "webgrid-selected-row",
+                            rowStyle: "webgrid-row-style",
+                            columns: grid.Columns(grid.Column("Scrubbedtext", "Text"),
+                                grid.Column("OccurenceCount", "# of Occurrences")
+
+
+                                )
+                            )
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+    }
+    
+</div>
+
